@@ -49,7 +49,7 @@ jobs:
 
       - name: "Run Jest"
         run: |
-          yarn test
+          yarn test \
           --ci \
           --silent \
           --maxWorkers=2 \

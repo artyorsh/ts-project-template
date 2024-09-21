@@ -1,0 +1,23 @@
+{
+  "extends": "@tsconfig/strictest",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": ".build/tsc-out",
+    "sourceMap": true,
+    "paths": {},
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "include": [
+    "./src/**/*.json",
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./jest.config.js"
+  ]
+}

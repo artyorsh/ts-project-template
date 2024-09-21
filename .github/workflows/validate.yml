@@ -1,0 +1,87 @@
+name: "Validate"
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    types:
+      - "opened"
+      - "synchronize"
+      - "ready_for_review"
+
+jobs:
+
+  assert-ready-for-review:
+    name: "Assert ready for review"
+    runs-on: "ubuntu-latest"
+        
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: "Fails because not ready for review"
+        run: echo "PR is ready for review, running all checks"
+
+  lint-compile:
+    name: "Lint and Compile"
+    runs-on: "ubuntu-latest"
+    needs: "assert-ready-for-review"
+
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "./.github/workflows/actions/prepare"
+
+      - run: yarn lint
+      - run: yarn knip
+      - run: yarn build
+
+  test:
+    name: "Test"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 30
+    needs: assert-ready-for-review
+    strategy:
+      matrix:
+        shard: [1]
+
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "./.github/workflows/actions/prepare"
+
+      - name: "Run Jest"
+        run: |
+          yarn test \
+          --ci \
+          --silent \
+          --maxWorkers=2 \
+          --runInBand=false \
+          --shard=${{ matrix.shard }}/${{ strategy.job-total }} \
+          --coverage \
+          --coverageReporters json-summary
+          mv .jest/coverage/coverage-summary.json .jest/coverage/shard-${{ matrix.shard }}.json
+
+      - name: "Upload Coverage"
+        uses: "actions/upload-artifact@v4"
+        with:
+          name: coverage-artifacts
+          path: .jest/coverage/
+          overwrite: true
+
+  report-coverage:
+    name: "Report Test Coverage"
+    runs-on: "ubuntu-latest"
+    needs: test
+
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "actions/download-artifact@v4"
+        with:
+          name: coverage-artifacts
+          path: .jest/coverage
+
+      - name: "Combine Reports"
+        run: jq 'reduce inputs as $i (.; . * $i)' .jest/coverage/shard-*.json > .jest/coverage/coverage-final.json
+
+      - name: "Report" 
+        uses: "MishaKav/jest-coverage-comment@main"
+        with:
+          coverage-summary-path: .jest/coverage/coverage-final.json

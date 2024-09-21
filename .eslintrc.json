@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc",
+  "root": true,
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "@stylistic/eslint-plugin",
+    "import",
+    "jest",
+    "simple-import-sort"
+  ],
+  "rules": {
+    "prettier/prettier": "off",
+    "import/no-duplicates": "error",
+    "no-fallthrough": "off",
+    "no-shadow": "off",
+    "no-var": "error",
+    "prefer-const": "error",
+    "jest/consistent-test-it": ["error", {
+      "fn": "it"
+    }],
+    "jest/max-nested-describe": ["error", {
+      "max": 1
+    }],
+    "jest/no-alias-methods": "error",
+    "jest/no-commented-out-tests": "error",
+    "jest/no-conditional-expect": "error",
+    "jest/no-conditional-in-test": "error",
+    "jest/no-disabled-tests": "error",
+    "jest/no-done-callback": "error",
+    "jest/no-duplicate-hooks": "error",
+    "jest/no-export": "error",
+    "jest/no-focused-tests": "error",
+    "jest/no-test-return-statement": "error",
+    "jest/prefer-comparison-matcher": "error",
+    "jest/prefer-equality-matcher": "error",
+    "jest/prefer-hooks-on-top": "error",
+    "jest/prefer-lowercase-title": ["error", {
+      "ignore": ["describe"]
+    }],
+    "jest/valid-describe-callback": "error",
+    "jest/valid-expect-in-promise": "error",
+    "jest/valid-expect": "error",
+    "jest/valid-title": "error",
+    "@typescript-eslint/consistent-indexed-object-style": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/explicit-function-return-type": ["error", {
+      "allowExpressions": true
+    }],
+    "@typescript-eslint/explicit-member-accessibility": ["error", {
+      "accessibility": "explicit",
+      "overrides": {
+        "constructors": "no-public"
+      }
+    }],
+    "@typescript-eslint/method-signature-style": ["error", "method"],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "typeLike",
+        "format": ["PascalCase"]
+      },
+      {
+        "selector": "enumMember",
+        "format": ["UPPER_CASE"]
+      },
+      {
+        "selector": [
+          "method",
+          "property"
+        ],
+        "format": ["camelCase"]
+      },
+      {
+        "selector": "classProperty",
+        "modifiers": ["static"],
+        "format": ["UPPER_CASE"]
+      },
+      {
+        "selector": [
+          "objectLiteralProperty",
+          "objectLiteralMethod",
+          "typeProperty"
+        ],
+        "format": null
+      },
+      {
+        "selector": "parameter",
+        "modifiers": ["unused"],
+        "format": null,
+        "leadingUnderscore": "require"
+      }
+    ],
+    "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-useless-constructor": "error",
+    "@typescript-eslint/prefer-enum-initializers": "error",
+
+    "@stylistic/array-bracket-newline": ["error", {
+      "multiline": true
+    }],
+    "@stylistic/array-element-newline": ["error", "consistent"],
+    "@stylistic/brace-style": "error",
+    "@stylistic/comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "always-multiline"
+    }],
+    "@stylistic/comma-spacing": "error",
+    "@stylistic/function-paren-newline": ["error", "multiline"],
+    "@stylistic/indent": ["error", 2],
+    "@stylistic/key-spacing": "error",
+    "@stykeyword-spacing": "off",
+    "@stylistic/keyword-spacing": ["error", {
+      "before": true
+    }],
+    "@stylistic/lines-between-class-members": ["error", "always", {
+      "exceptAfterSingleLine": true
+    }],
+    "@stylistic/no-multi-spaces": "error",
+    "@stylistic/no-multiple-empty-lines": ["error", {
+      "max": 1,
+      "maxBOF": 0,
+      "maxEOF": 1
+    }],
+    "@stylistic/object-curly-spacing": ["error", "always"],
+    "@stylistic/padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "import",
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": "import",
+        "next": "import"
+      },
+      {
+        "blankLine": "always",
+        "prev": [
+          "type",
+          "interface"
+        ],
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": [
+          "case",
+          "default"
+        ],
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": [
+          "return",
+          "throw"
+        ]
+      }
+    ],
+    "@stylistic/semi": ["error", "always"],
+    "@stylistic/space-infix-ops": "error",
+    "@stylistic/space-in-parens": ["error", "never"],
+    "@stylistic/space-unary-ops": "error",
+    "@stylistic/member-delimiter-style": "error",
+    "@stylistic/type-annotation-spacing": "error",
+    "@stylistic/quotes": ["error", "single"]
+  }
+}
